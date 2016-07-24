@@ -1,9 +1,9 @@
 (function () {
     'use strict';
 
-    angular.module('RoomateApp').controller('MenuCtrl', ['$scope', '$ionicPopover','$ionicModal', MenuCtrl]);
+    angular.module('RoomateApp').controller('LoginCtrl', ['$scope', '$ionicPopover','$ionicModal', LoginCtrl]);
 
-    function MenuCtrl($scope, $ionicPopover, $ionicModal) {
+    function LoginCtrl($scope, $ionicPopover, $ionicModal) {
 
 
         // With the new view caching in Ionic, Controllers are only called
