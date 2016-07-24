@@ -29,6 +29,11 @@ angular.module('RoomateApp', ['ionic'])
         templateUrl: 'app/Login/loginLanding.html'
       })
 
+      .state('facebook', {
+        url: '/fb',
+        templateUrl: 'app/Login/facebookLogin.html'
+      })
+
       .state('app', {
         url: '/app',
         abstract: true,
