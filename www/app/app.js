@@ -24,6 +24,9 @@ angular.module('RoomateApp', ['ionic'])
 
   .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
+
+      //DEFAULT LOGIN PAGE
+      //LOGIN THROUGH FB OR GOOGLE HERE
       .state('login', {
         url: '/login',
         templateUrl: 'app/Login/loginLanding.html'
@@ -34,6 +37,13 @@ angular.module('RoomateApp', ['ionic'])
         templateUrl: 'app/Login/facebookLogin.html'
       })
 
+      // PROFILE PAGE
+      .state('profile', {
+        url: '/profile',
+        templateUrl: 'app/Profile/profile.html'
+      })
+
+      //APP CONTENT PAGES
       .state('app', {
         url: '/app',
         abstract: true,

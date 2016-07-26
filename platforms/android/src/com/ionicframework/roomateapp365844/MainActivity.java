@@ -21,7 +21,7 @@ package com.ionicframework.roomateapp365844;
 
 import android.os.Bundle;
 import org.apache.cordova.*;
-import com.facebook.FacebookSdk;
+// import com.facebook.FacebookSdk;
 
 public class MainActivity extends CordovaActivity
 {

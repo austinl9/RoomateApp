@@ -24,6 +24,9 @@
         },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.ionicframework.roomateapp365844"
+        },
+        "phonegap-facebook-plugin": {
+            "PACKAGE_NAME": "com.ionicframework.roomateapp365844"
         }
     },
     "dependent_plugins": {}
