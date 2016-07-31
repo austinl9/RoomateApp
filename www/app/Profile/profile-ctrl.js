@@ -13,6 +13,14 @@
             }
         }, true);
 
+        $scope.$watch(function ()
+        { return UserInfo.getPicture(); }, function (newValue, oldValue) {
+            if (newValue != null) {
+                //update Controller2's xxx value
+                $scope.pictureURL = newValue;
+            }
+        }, true);
+
         // $scope.name = "test";
         $scope.name = UserInfo.getUserName();
         // $scope.name = "test";

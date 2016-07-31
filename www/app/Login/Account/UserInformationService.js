@@ -58,8 +58,7 @@
 angular.module('RoomateApp').factory('UserInfo', function () {
     var isLogin = false;
     var userName = {};
-    var userEmail = "";
-    var createName = "";
+    var pictureURL = {};
 
     var setUserName = function (name) {
         userName = name;
@@ -69,8 +68,18 @@ angular.module('RoomateApp').factory('UserInfo', function () {
         return userName;
     }
 
+    var setPicture = function(picture){
+        pictureURL = picture;
+    }
+
+    var getPicture = function(){
+        return pictureURL;
+    }
+
     return {
         setUserName : setUserName,
-        getUserName : getUserName
+        getUserName : getUserName,
+        setPicture : setPicture,
+        getPicture : getPicture
     }
 });

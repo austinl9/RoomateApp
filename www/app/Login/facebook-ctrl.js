@@ -42,6 +42,7 @@
             // for FB.getLoginStatus().
             if (response.status === 'connected') {
                 $scope.successfulLoginAPI();
+                $scope.getPicture();
                 $window.location.href = '/#/profile';
             }
 
@@ -54,6 +55,7 @@
                     //if successful login we will redirect the user to a different page
                     if (response.authResponse) {
                         $scope.successfulLoginAPI();
+                        $scope.getPicture();
                         $window.location.href = '/#/profile';
                     }
                     else {
@@ -72,6 +74,7 @@
                     //if successful login we will redirect the user to a different page
                     if (response.authResponse) {
                         $scope.successfulLoginAPI();
+                        $scope.getPicture();
                         $window.location.href = '/#/profile';
                     }
                     else {
@@ -110,7 +113,18 @@
         };
 
         $scope.getPicture = function () {
+            console.log('Getting your picture.... ');
+            FB.api('/me/?fields=picture', function (response) {
 
+                //THE FB API CALL IS ASYNCHRONOUS - SCOPE DOESN'T KNOW WHATS GOING ON
+                $scope.$apply(function () {
+                    console.log("it was set here");
+                    UserInfo.setPicture(response.picture.data.url);
+                    console.log(response.picture.data.url);
+                });
+
+
+            });
         }
 
     }
