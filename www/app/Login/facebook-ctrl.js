@@ -1,10 +1,18 @@
 (function () {
     'use strict';
 
-    angular.module('RoomateApp').controller('fbCtrl', ['$scope', '$ionicPopover', '$ionicModal', '$window', fbCtrl]);
+    angular.module('RoomateApp').controller('fbCtrl', ['$scope', '$ionicPopover', '$ionicModal', '$window', 'UserInfo', fbCtrl]);
 
-    function fbCtrl($scope, $ionicPopover, $ionicModal, $window) {
+    function fbCtrl($scope, $ionicPopover, $ionicModal, $window, UserInfo) {
 
+        var User = function (username, emailAddress, pictureURL) {
+            this.name = username;
+            this.email = emailAddress;
+            this.pic = pictureURL;
+        }
+
+
+        // $scope.name = "test";
         // INITIALIZED FACEBOOK API CALL
         window.fbAsyncInit = function () {
             FB.init({
@@ -81,13 +89,29 @@
             });
         }
 
-
+        //successful API CALL
+        //SET the person's name in the successful API call
         $scope.successfulLoginAPI = function () {
             console.log('Welcome!  Fetching your information.... ');
             FB.api('/me', function (response) {
                 console.log('Good to see you, ' + response.name + '.');
+                $scope.user = new User(response.name, "", 0, 0);
+
+                //THE FB API CALL IS ASYNCHRONOUS - SCOPE DOESN'T KNOW WHATS GOING ON
+                $scope.$apply(function () {
+                    $scope.name = response.name;
+                    UserInfo.setUserName($scope.name);
+                    console.log("it was set here");
+                    console.log(UserInfo.getUserName());
+                });
+
+
             });
         };
+
+        $scope.getPicture = function () {
+
+        }
 
     }
 })();
