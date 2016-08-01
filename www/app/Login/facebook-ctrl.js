@@ -41,8 +41,9 @@
             // Full docs on the response object can be found in the documentation
             // for FB.getLoginStatus().
             if (response.status === 'connected') {
-                $scope.successfulLoginAPI();
-                $scope.getPicture();
+                $scope.getNamefromFB();
+                $scope.getPicturefromFB();
+                UserInfo.setLoginStatus(true);
                 $window.location.href = '/#/profile';
             }
 
@@ -54,8 +55,9 @@
 
                     //if successful login we will redirect the user to a different page
                     if (response.authResponse) {
-                        $scope.successfulLoginAPI();
-                        $scope.getPicture();
+                        $scope.getNamefromFB();
+                        $scope.getPicturefromFB();
+                        UserInfo.setLoginStatus(true);
                         $window.location.href = '/#/profile';
                     }
                     else {
@@ -73,8 +75,9 @@
 
                     //if successful login we will redirect the user to a different page
                     if (response.authResponse) {
-                        $scope.successfulLoginAPI();
-                        $scope.getPicture();
+                        $scope.getNamefromFB();
+                        $scope.getPicturefromFB();
+                        UserInfo.setLoginStatus(true);
                         $window.location.href = '/#/profile';
                     }
                     else {
@@ -92,9 +95,11 @@
             });
         }
 
+
+        //get values from Facebook
         //successful API CALL
         //SET the person's name in the successful API call
-        $scope.successfulLoginAPI = function () {
+        $scope.getNamefromFB = function () {
             console.log('Welcome!  Fetching your information.... ');
             FB.api('/me', function (response) {
                 console.log('Good to see you, ' + response.name + '.');
@@ -112,15 +117,15 @@
             });
         };
 
-        $scope.getPicture = function () {
+        $scope.getPicturefromFB = function () {
             console.log('Getting your picture.... ');
-            FB.api('/me/?fields=picture', function (response) {
-
+            FB.api('/me/picture?type=large', function (response) {
                 //THE FB API CALL IS ASYNCHRONOUS - SCOPE DOESN'T KNOW WHATS GOING ON
                 $scope.$apply(function () {
                     console.log("it was set here");
-                    UserInfo.setPicture(response.picture.data.url);
-                    console.log(response.picture.data.url);
+                    console.log(response.data.url);
+                    UserInfo.setPicture(response.data.url);
+                    console.log(response.data.url);
                 });
 
 
