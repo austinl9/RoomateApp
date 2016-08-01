@@ -122,10 +122,7 @@
             FB.api('/me/picture?type=large', function (response) {
                 //THE FB API CALL IS ASYNCHRONOUS - SCOPE DOESN'T KNOW WHATS GOING ON
                 $scope.$apply(function () {
-                    console.log("it was set here");
-                    console.log(response.data.url);
                     UserInfo.setPicture(response.data.url);
-                    console.log(response.data.url);
                 });
 
 
