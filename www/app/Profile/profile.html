@@ -8,10 +8,17 @@
 <ion-view>
     <ion-content class="padding" ng-controller="ProfileCtrl">
 
-        <h1>TESTING THE FACEBOOK REDIRECT</h1>
+        <h1>Profile Page</h1>
         <img src ={{pictureURL}} alt="Smiley face" height="200" width="200">
         <div> hi <span ng-bind="name"></span></div>
+        
+        <input ng-model="name">
+
         <div> hi <span ng-bind="loginStatus"></span></div>
+
+        <button>
+            Update Profile
+        </button>
 
     </ion-content>
 

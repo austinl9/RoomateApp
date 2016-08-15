@@ -6,13 +6,19 @@
 
 
 <ion-view>
-    <ion-content class="padding" ng-controller="fbCtrl">
-
-        <button class="button button-block button-assertive" ng-click="loginGoogle()">Login Using Google Gmail</button>
-        <button class="button button-block button-positive" ng-click="checkLoginState()">Login Using Facebook</button>
-        <div >
+    <ion-content class="padding">
+        <div>
+            <button class="button button-block button-assertive" ng-click="loginGoogle()">Login Using Google Gmail</button>
+            <span id="googleSignIn">
+    <span id="signInButton"> </span>
+            </span>
+        </div>
+        <div ng-controller="fbCtrl">
+            <button class="button button-block button-positive" ng-click="checkLoginState()">Login Using Facebook</button>
+        </div>
+        <div>
             HI, <span data-ng-bind-html="name"></span>
-            </div>
+        </div>
     </ion-content>
 
 </ion-view>

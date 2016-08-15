@@ -1,43 +1,47 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title></title>
 
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+  <title></title>
 
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+  <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+
+  <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
 
-    <!-- ionic/angularjs js -->
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
+  <!-- ionic/angularjs js -->
+  <script src="lib/ionic/js/ionic.bundle.js"></script>
 
-    <!-- cordova script (this will be a 404 during development) -->
-    <script src="cordova.js"></script>
+  <!-- cordova script (this will be a 404 during development) -->
+  <script src="cordova.js"></script>
 
-    <!-- your app's js -->
-    <!--THIS IS OUR APPS MAIN JS-->
-    <script src="app/app.js"></script>
+  <!-- your app's js -->
+  <!--THIS IS OUR APPS MAIN JS-->
+  <script src="app/app.js"></script>
 
-    <!--NOT NEEDED PRE BUILT JS FILES-->
-    <!--<script src="js/controllers.js"></script>-->
+  <!--NOT NEEDED PRE BUILT JS FILES-->
+  <!--<script src="js/controllers.js"></script>-->
 
 
-<!--INPUT YOUR CONTROLLERS HERE-->
-<script src="app/Login/login-ctrl.js"></script>
-<script src="app/Playlist/playlists-ctrl.js"></script>
-<script src="app/Login/facebook-ctrl.js"></script>
-<script src="app/Profile/profile-ctrl.js"></script>
+  <!--INPUT YOUR CONTROLLERS HERE-->
+  <script src="app/Login/login-ctrl.js"></script>
+  <script src="app/Playlist/playlists-ctrl.js"></script>
+  <script src="app/Login/facebook-ctrl.js"></script>
+  <script src="app/Profile/profile-ctrl.js"></script>
+  <!--<script src="app/Login/google-ctrl.js"></script>-->
 
-<!--my services-->
-<script src="app/Login/Account/UserInformationService.js"></script>
-  </head>
+  <!--my services-->
+  <script src="app/Login/Account/UserInformationService.js"></script>
 
-  <body ng-app="RoomateApp">
-    <ion-nav-view></ion-nav-view>
-  </body>
-  <div id="fb-root"></div>
+</head>
+
+<body ng-app="RoomateApp">
+  <ion-nav-view></ion-nav-view>
+</body>
+<div id="fb-root"></div>
+
 </html>
