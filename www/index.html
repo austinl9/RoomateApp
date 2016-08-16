@@ -2,6 +2,7 @@
 <html>
 
 <head>
+  <meta name="google-signin-client_id" content="1051787815971-ohb5htfb3o4jdkuv447i7gmscsrgjr2h.apps.googleusercontent.com">
   <meta charset="utf-8">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
   <title></title>
@@ -23,19 +24,22 @@
   <!--THIS IS OUR APPS MAIN JS-->
   <script src="app/app.js"></script>
 
-  <!--NOT NEEDED PRE BUILT JS FILES-->
-  <!--<script src="js/controllers.js"></script>-->
-
 
   <!--INPUT YOUR CONTROLLERS HERE-->
   <script src="app/Login/login-ctrl.js"></script>
   <script src="app/Playlist/playlists-ctrl.js"></script>
   <script src="app/Login/facebook-ctrl.js"></script>
   <script src="app/Profile/profile-ctrl.js"></script>
-  <!--<script src="app/Login/google-ctrl.js"></script>-->
+  <script src="app/Login/google-ctrl.js"></script>
 
   <!--my services-->
   <script src="app/Login/Account/UserInformationService.js"></script>
+
+<script src="https://apis.google.com/js/client.js?onload=googleOnLoadCallback"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<!--google script plus signin-->
+<script src="js/google-plus-signin.js"></script>
 
 </head>
 

@@ -1,0 +1,39 @@
+{
+  "name": "angular-google-auth",
+  "version": "1.0.4",
+  "authors": [
+    "Luke Madera <luke.madera@gmail.com>"
+  ],
+  "description": "AngularJS Google login directive",
+  "keywords": [
+    "angular",
+    "AngularJS",
+    "google",
+    "login",
+    "angular-google-auth",
+    "service"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.0"
+  },
+  "devDependencies": {},
+  "homepage": "https://github.com/jackrabbitsgroup/angular-google-auth",
+  "_release": "1.0.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.4",
+    "commit": "60c87f3c9e6dc2ccbe460bdda4377c5a500db50c"
+  },
+  "_source": "https://github.com/jackrabbitsgroup/angular-google-auth.git",
+  "_target": "^1.0.4",
+  "_originalSource": "angular-google-auth",
+  "_direct": true
+}
