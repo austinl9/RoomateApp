@@ -35,7 +35,8 @@ angular.module('directive.g+signin', []).
                   longtitle: false,
                   theme: 'dark',
                   autorender: true,
-                  customtargetid: 'googlebutton'
+                  customtargetid: 'googlebutton',
+                  align: 'center'
               };
 
               defaults.clientid = attrs.clientid;
