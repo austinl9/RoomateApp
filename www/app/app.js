@@ -32,11 +32,6 @@ angular.module('RoomateApp', ['ionic', 'directive.g+signin', 'firebase'])
         templateUrl: 'app/Login/loginLanding.html'
       })
 
-      // .state('facebook', {
-      //   url: '/fb',
-      //   templateUrl: 'app/Login/facebookLogin.html'
-      // })
-
       // PROFILE PAGE
       .state('profile', {
         url: '/profile',
