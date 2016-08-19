@@ -1,9 +1,9 @@
 (function () {
     'use strict';
 
-    angular.module('RoomateApp').controller('googleCtrl', ['$scope', '$ionicPopover', '$ionicModal', '$window', 'UserInfo', googleCtrl]);
+    angular.module('RoomateApp').controller('googleCtrl', ['$scope', '$ionicPopover', '$ionicModal', '$window', 'UserInfo', 'Items', googleCtrl]);
 
-    function googleCtrl($scope, $ionicPopover, $ionicModal, $window, UserInfo) {
+    function googleCtrl($scope, $ionicPopover, $ionicModal, $window, UserInfo, Items) {
 
 
         $scope.GoogleUser = false;
@@ -18,7 +18,7 @@
             )
         }
 
-        $scope.goToProfile = function(){
+        $scope.goToProfile = function () {
             $window.location.href = '/#/profile';
         }
 
@@ -46,9 +46,18 @@
             $scope.Googleuser = false;
         });
 
+        //testing firebase db
 
+        $scope.items = Items;
+        $scope.addItem = function () {
+            var name = prompt("What do you need to buy?");
+            if (name) {
+                $scope.items.$add({
+                    "name": name
+                });
+            }
 
-
+        }
     }
 })();
 
