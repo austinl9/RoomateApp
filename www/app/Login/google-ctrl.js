@@ -1,9 +1,9 @@
 (function () {
     'use strict';
 
-    angular.module('RoomateApp').controller('googleCtrl', ['$scope', '$ionicPopover', '$ionicModal', '$window', 'UserInfo', 'Items', googleCtrl]);
+    angular.module('RoomateApp').controller('googleCtrl', ['$scope', '$ionicPopover', '$ionicModal', '$window', 'UserInfo', 'LoginUser', googleCtrl]);
 
-    function googleCtrl($scope, $ionicPopover, $ionicModal, $window, UserInfo, Items) {
+    function googleCtrl($scope, $ionicPopover, $ionicModal, $window, UserInfo, LoginUser) {
 
 
         $scope.GoogleUser = false;
@@ -48,16 +48,22 @@
 
         //testing firebase db
 
-        $scope.items = Items;
-        $scope.addItem = function () {
+
+//Login user schema:
+//USERID EMAIL USERNAME IMAGEURL MSGLOGS FRIENDLIST
+        $scope.LoginUser = LoginUser;
+        $scope.addGoogleUser = function () {
+            //need to have an if statement to check if login was valid
             var name = prompt("What do you need to buy?");
             if (name) {
-                $scope.items.$add({
+                $scope.LoginUser.$add({
                     "name": name
                 });
             }
 
         }
+
+        //some kind of method to check if 
     }
 })();
 
