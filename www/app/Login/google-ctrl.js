@@ -1,12 +1,9 @@
 (function () {
     'use strict';
 
-    angular.module('RoomateApp').controller('googleCtrl', ['$scope', '$ionicPopover', '$ionicModal', '$window', 'UserInfo', 'LoginUser', googleCtrl]);
+    angular.module('RoomateApp').controller('googleCtrl', ['$scope', '$ionicPopover', '$ionicModal', '$window', 'UserInfo', 'LoginUser', 'FirebaseDB', googleCtrl]);
 
-    function googleCtrl($scope, $ionicPopover, $ionicModal, $window, UserInfo, LoginUser) {
-
-
-        $scope.GoogleUser = false;
+    function googleCtrl($scope, $ionicPopover, $ionicModal, $window, UserInfo, LoginUser, FirebaseDB) {
 
         $scope.getUserInfo = function () {
             gapi.client.request(
@@ -18,7 +15,9 @@
             )
         }
 
-        $scope.goToProfile = function () {
+        $scope.confirmGoogleLogin = function () {
+            $scope.getUserInfo();
+            FirebaseDB.addNewUser(UserInfo);
             $window.location.href = '/#/profile';
         }
 
@@ -33,13 +32,13 @@
             UserInfo.setUserName(userInfo.displayName);
             UserInfo.setLoginStatus(true);
             UserInfo.setPicture(userInfo.image.url);
-
+            UserInfo.setEmail(userInfo.emails[0].value);
         }
 
         $scope.$on('event:google-plus-signin-success', function (event, authResult) {
             UserInfo.setLoginStatus(true);
-            $scope.getUserInfo();
             $scope.GoogleUser = true;
+
         });
         $scope.$on('event:google-plus-signin-failure', function (event, authResult) {
             console.log("failure bruh");
@@ -51,14 +50,18 @@
 
 //Login user schema:
 //USERID EMAIL USERNAME IMAGEURL MSGLOGS FRIENDLIST
+//This is the datastructure to put into firebase
         $scope.LoginUser = LoginUser;
-        $scope.addGoogleUser = function () {
+        $scope.addGoogleUserToFireBase = function () {
             //need to have an if statement to check if login was valid
-            var name = prompt("What do you need to buy?");
-            if (name) {
+            if(UserInfo.getLoginStatus() == true){
                 $scope.LoginUser.$add({
-                    "name": name
-                });
+                    Email: UserInfo.getEmail(),
+                    UserName: UserInfo.getUserName(),
+                    Image: UserInfo.getPicture(),
+                    MsgLog: "",
+                    FriendList: ""
+                })
             }
 
         }

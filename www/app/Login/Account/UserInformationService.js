@@ -3,6 +3,7 @@ angular.module('RoomateApp').factory('UserInfo', function () {
     var LoginStatus = false;
     var userName = {};
     var pictureURL = {};
+    var userEmail = {};
 
     var getLoginStatus = function(){
         return LoginStatus;
@@ -28,12 +29,22 @@ angular.module('RoomateApp').factory('UserInfo', function () {
         return pictureURL;
     }
 
+    var getEmail = function(){
+        return userEmail;
+    }
+
+    var setEmail = function(email){
+        userEmail = email;
+    }
+
     return {
         getLoginStatus : getLoginStatus,
         setLoginStatus : setLoginStatus,
         setUserName : setUserName,
         getUserName : getUserName,
         setPicture : setPicture,
-        getPicture : getPicture
+        getPicture : getPicture,
+        getEmail : getEmail,
+        setEmail : setEmail,
     }
 });

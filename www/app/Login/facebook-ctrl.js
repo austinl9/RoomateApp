@@ -1,18 +1,10 @@
 (function () {
     'use strict';
 
-    angular.module('RoomateApp').controller('fbCtrl', ['$scope', '$ionicPopover', '$ionicModal', '$window', 'UserInfo', fbCtrl]);
+    angular.module('RoomateApp').controller('fbCtrl', ['$scope', '$ionicPopover', '$ionicModal', '$window', 'UserInfo', 'FirebaseDB', fbCtrl]);
 
-    function fbCtrl($scope, $ionicPopover, $ionicModal, $window, UserInfo) {
+    function fbCtrl($scope, $ionicPopover, $ionicModal, $window, UserInfo, FirebaseDB) {
 
-        var User = function (username, emailAddress, pictureURL) {
-            this.name = username;
-            this.email = emailAddress;
-            this.pic = pictureURL;
-        }
-
-
-        // $scope.name = "test";
         // INITIALIZED FACEBOOK API CALL
         window.fbAsyncInit = function () {
             FB.init({
@@ -41,9 +33,10 @@
             // Full docs on the response object can be found in the documentation
             // for FB.getLoginStatus().
             if (response.status === 'connected') {
-                $scope.getNamefromFB();
-                $scope.getPicturefromFB();
+                $scope.getFacebookInfo();
+                // $scope.getPicturefromFB();
                 UserInfo.setLoginStatus(true);
+                // FirebaseDB.addNewUser(UserInfo);
                 $window.location.href = '/#/profile';
             }
 
@@ -55,8 +48,7 @@
 
                     //if successful login we will redirect the user to a different page
                     if (response.authResponse) {
-                        $scope.getNamefromFB();
-                        $scope.getPicturefromFB();
+                        $scope.getFacebookInfo();
                         UserInfo.setLoginStatus(true);
                         $window.location.href = '/#/profile';
                     }
@@ -75,8 +67,8 @@
 
                     //if successful login we will redirect the user to a different page
                     if (response.authResponse) {
-                        $scope.getNamefromFB();
-                        $scope.getPicturefromFB();
+                        $scope.getFacebookInfo();
+                        // $scope.getPicturefromFB();
                         UserInfo.setLoginStatus(true);
                         $window.location.href = '/#/profile';
                     }
@@ -99,35 +91,36 @@
         //get values from Facebook
         //successful API CALL
         //SET the person's name in the successful API call
-        $scope.getNamefromFB = function () {
-            console.log('Welcome!  Fetching your information.... ');
+        $scope.getFacebookInfo = function () {
+
+            //GETS YOUR NAME
             FB.api('/me', function (response) {
-                console.log('Good to see you, ' + response.name + '.');
-                $scope.user = new User(response.name, "", 0, 0);
+                console.log(response);
 
                 //THE FB API CALL IS ASYNCHRONOUS - SCOPE DOESN'T KNOW WHATS GOING ON
                 $scope.$apply(function () {
                     $scope.name = response.name;
                     UserInfo.setUserName($scope.name);
-                    console.log("it was set here");
-                    console.log(UserInfo.getUserName());
+                    //GETS YOUR PICTURE
+                    $scope.getPicturefromFB ();
                 });
 
 
             });
         };
 
+//GETS YOUR PICTURE
         $scope.getPicturefromFB = function () {
-            console.log('Getting your picture.... ');
             FB.api('/me/picture?type=large', function (response) {
-                //THE FB API CALL IS ASYNCHRONOUS - SCOPE DOESN'T KNOW WHATS GOING ON
                 $scope.$apply(function () {
                     UserInfo.setPicture(response.data.url);
+                    FirebaseDB.addNewUser(UserInfo);
                 });
 
 
             });
         }
+
 
     }
 })();
