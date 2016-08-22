@@ -67,7 +67,6 @@
                     //if successful login we will redirect the user to a different page
                     if (response.authResponse) {
                         $scope.getFacebookInfo();
-                        // $scope.getPicturefromFB();
                         UserInfo.setLoginStatus(true);
                         $window.location.href = '/#/profile';
                     }
@@ -114,8 +113,6 @@
                 console.log(response)
                 $scope.$apply(function (){
                     UserInfo.setPicture(response.data.url);
-                    console.log("getting email");
-                    $scope.getEmailfromFB();
                     FirebaseDB.addNewUser(UserInfo);
                 });
             });
