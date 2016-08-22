@@ -25,6 +25,8 @@ angular.module('RoomateApp')
         var testingGettingStuff = function () {
             itemsRef.on("value", function (snapshot) {
                 console.log(snapshot.val());
+                var test = snapshot.val();
+                console.log(test.austin);
                 console.log(snapshot.key());
             }, function (errorObject) {
                 console.log("The read failed: " + errorObject.code);
