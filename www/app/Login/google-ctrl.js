@@ -38,6 +38,7 @@
         $scope.$on('event:google-plus-signin-success', function (event, authResult) {
             UserInfo.setLoginStatus(true);
             $scope.GoogleUser = true;
+            console.log("google user is true");
 
         });
         $scope.$on('event:google-plus-signin-failure', function (event, authResult) {

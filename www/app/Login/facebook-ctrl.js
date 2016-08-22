@@ -22,7 +22,7 @@
             js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=1808359049450591";
             fjs.parentNode.insertBefore(js, fjs);
         } (document, 'script', 'facebook-jssdk'));
-
+ 
 
         $scope.statusChangeCallback = function (response) {
             console.log("clicked");
@@ -30,7 +30,6 @@
             console.log(response);
             // The response object is returned with a status field that lets the
             // app know the current login status of the person.
-            // Full docs on the response object can be found in the documentation
             // for FB.getLoginStatus().
             if (response.status === 'connected') {
                 $scope.getFacebookInfo();
@@ -112,14 +111,37 @@
 //GETS YOUR PICTURE
         $scope.getPicturefromFB = function () {
             FB.api('/me/picture?type=large', function (response) {
-                $scope.$apply(function () {
+                console.log(response)
+                $scope.$apply(function (){
                     UserInfo.setPicture(response.data.url);
+                    console.log("getting email");
+                    $scope.getEmailfromFB();
                     FirebaseDB.addNewUser(UserInfo);
                 });
-
-
             });
         }
+
+
+
+        //facebook removed the ability to get username and email from their api needs to 
+        //implement feature that will update it in profile page
+
+        // $scope.getEmailfromFB = function () {
+        //     FB.api('/me?fields=username', function (response) {
+        //         console.log(response);
+        //         $scope.$apply(function(){
+        //             if(response.email){
+        //                //there is a real email
+        //                UserInfo.setEmail(response.email); 
+        //             }
+        //             else{
+                        
+        //             }
+        //         })
+
+
+        //     });
+        // }
 
 
     }
