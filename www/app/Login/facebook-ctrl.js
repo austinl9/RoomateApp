@@ -33,9 +33,7 @@
             // for FB.getLoginStatus().
             if (response.status === 'connected') {
                 $scope.getFacebookInfo();
-                // $scope.getPicturefromFB();
                 UserInfo.setLoginStatus(true);
-                // FirebaseDB.addNewUser(UserInfo);
                 $window.location.href = '/#/profile';
             }
 
@@ -113,33 +111,10 @@
                 console.log(response)
                 $scope.$apply(function (){
                     UserInfo.setPicture(response.data.url);
-                    FirebaseDB.addNewUser(UserInfo);
+                    FirebaseDB.addNewUser();
                 });
             });
         }
-
-
-
-        //facebook removed the ability to get username and email from their api needs to 
-        //implement feature that will update it in profile page
-
-        // $scope.getEmailfromFB = function () {
-        //     FB.api('/me?fields=username', function (response) {
-        //         console.log(response);
-        //         $scope.$apply(function(){
-        //             if(response.email){
-        //                //there is a real email
-        //                UserInfo.setEmail(response.email); 
-        //             }
-        //             else{
-                        
-        //             }
-        //         })
-
-
-        //     });
-        // }
-
 
     }
 })();

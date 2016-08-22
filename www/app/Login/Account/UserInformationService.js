@@ -4,6 +4,7 @@ angular.module('RoomateApp').factory('UserInfo', function () {
     var userName = {};
     var pictureURL = {};
     var userEmail = {};
+    var dbKeyVal = {};
 
     var getLoginStatus = function(){
         return LoginStatus;

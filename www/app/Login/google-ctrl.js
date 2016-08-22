@@ -1,9 +1,9 @@
 (function () {
     'use strict';
 
-    angular.module('RoomateApp').controller('googleCtrl', ['$scope', '$ionicPopover', '$ionicModal', '$window', 'UserInfo', 'LoginUser', 'FirebaseDB', googleCtrl]);
+    angular.module('RoomateApp').controller('googleCtrl', ['$scope', '$ionicPopover', '$ionicModal', '$window', 'UserInfo', 'FirebaseDB', googleCtrl]);
 
-    function googleCtrl($scope, $ionicPopover, $ionicModal, $window, UserInfo, LoginUser, FirebaseDB) {
+    function googleCtrl($scope, $ionicPopover, $ionicModal, $window, UserInfo, FirebaseDB) {
 
         $scope.getUserInfo = function () {
             gapi.client.request(
@@ -17,7 +17,7 @@
 
         $scope.confirmGoogleLogin = function () {
             $scope.getUserInfo();
-            FirebaseDB.addNewUser(UserInfo);
+            FirebaseDB.addNewUser();
             $window.location.href = '/#/profile';
         }
 
@@ -37,37 +37,19 @@
 
         $scope.$on('event:google-plus-signin-success', function (event, authResult) {
             UserInfo.setLoginStatus(true);
-            $scope.GoogleUser = true;
-            console.log("google user is true");
-
+            //this does a specific update on the scope binding
+            $scope.$apply(function(){
+                $scope.GoogleUser = true;
+            })
         });
         $scope.$on('event:google-plus-signin-failure', function (event, authResult) {
             console.log("failure bruh");
             $scope.Googleuser = false;
         });
 
-        //testing firebase db
-
-
-//Login user schema:
-//USERID EMAIL USERNAME IMAGEURL MSGLOGS FRIENDLIST
-//This is the datastructure to put into firebase
-        $scope.LoginUser = LoginUser;
-        $scope.addGoogleUserToFireBase = function () {
-            //need to have an if statement to check if login was valid
-            if(UserInfo.getLoginStatus() == true){
-                $scope.LoginUser.$add({
-                    Email: UserInfo.getEmail(),
-                    UserName: UserInfo.getUserName(),
-                    Image: UserInfo.getPicture(),
-                    MsgLog: "",
-                    FriendList: ""
-                })
-            }
-
+        $scope.testingbutton = function(){
+            FirebaseDB.testingGettingStuff();
         }
-
-        //some kind of method to check if 
     }
 })();
 
