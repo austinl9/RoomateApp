@@ -23,6 +23,9 @@ angular.module('RoomateApp')
 
 
         var testingGettingStuff = function () {
+            //go to the ref link var itemsRef = new Firebase("https://roomateapp-1470094404168.firebaseio.com/LoginUser ............... UUID...");
+            //then extract the information.... will provide a clean way for both fb and google.
+
             itemsRef.on("value", function (snapshot) {
                 console.log(snapshot.val());
                 var test = snapshot.val();
