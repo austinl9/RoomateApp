@@ -17,7 +17,9 @@
 
         $scope.confirmGoogleLogin = function () {
             $scope.getUserInfo();
-            FirebaseDB.addNewUser();
+            var hash = uuid.v4();
+            //generate hash
+            FirebaseDB.newAddUser(hash);
             $window.location.href = '/#/profile';
         }
 
@@ -51,10 +53,6 @@
             FirebaseDB.testingGettingStuff();
         }
 
-        $scope.testingUUID = function () {
-            var hash = uuid.v4();
-            console.log(hash);
-        }
     }
 })();
 

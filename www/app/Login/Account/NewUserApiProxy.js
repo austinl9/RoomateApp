@@ -11,6 +11,7 @@ angular.module('RoomateApp')
             //need to have an if statement to check if login was valid
             if (UserInfo.getLoginStatus() == true) {
                 LoginUser.$add({
+                    "Name": "keyValu",
                     Email: UserInfo.getEmail(),
                     UserName: UserInfo.getUserName(),
                     Image: UserInfo.getPicture(),
@@ -18,6 +19,19 @@ angular.module('RoomateApp')
                     FriendList: ""
                 })
             }
+
+        }
+
+        var newAddUser = function (newhash) {
+            //need to have an if statement to check if login was valid
+
+            //creates a new hash
+            var newDBpath = new Firebase("https://roomateapp-1470094404168.firebaseio.com/LoginUser"+"/" + newhash);
+            //testing
+            newDBpath.set({
+                    "Name": "keyValu"
+                })
+            console.log("works good" + newhash);
 
         }
 
@@ -39,6 +53,7 @@ angular.module('RoomateApp')
 
         return {
             addNewUser: addNewUser,
-            testingGettingStuff: testingGettingStuff
+            testingGettingStuff: testingGettingStuff,
+            newAddUser: newAddUser
         }
     }]);
