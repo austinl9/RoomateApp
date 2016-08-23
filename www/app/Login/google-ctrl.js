@@ -1,9 +1,9 @@
 (function () {
     'use strict';
 
-    angular.module('RoomateApp').controller('googleCtrl', ['$scope', '$ionicPopover', '$ionicModal', '$window', 'UserInfo', 'FirebaseDB', googleCtrl]);
+    angular.module('RoomateApp').controller('googleCtrl', ['$scope', '$ionicPopover', '$ionicModal', '$window', 'UserInfo', 'FirebaseDB', 'uuid', googleCtrl]);
 
-    function googleCtrl($scope, $ionicPopover, $ionicModal, $window, UserInfo, FirebaseDB) {
+    function googleCtrl($scope, $ionicPopover, $ionicModal, $window, UserInfo, FirebaseDB, uuid) {
 
         $scope.getUserInfo = function () {
             gapi.client.request(
@@ -38,7 +38,7 @@
         $scope.$on('event:google-plus-signin-success', function (event, authResult) {
             UserInfo.setLoginStatus(true);
             //this does a specific update on the scope binding
-            $scope.$apply(function(){
+            $scope.$apply(function () {
                 $scope.GoogleUser = true;
             })
         });
@@ -47,8 +47,13 @@
             $scope.Googleuser = false;
         });
 
-        $scope.testingbutton = function(){
+        $scope.testingbutton = function () {
             FirebaseDB.testingGettingStuff();
+        }
+
+        $scope.testingUUID = function () {
+            var hash = uuid.v4();
+            console.log(hash);
         }
     }
 })();
