@@ -39,12 +39,14 @@ angular.module('RoomateApp')
 
         var getUsers = function(){
             var userPath = new Firebase("https://roomateapp-1470094404168.firebaseio.com/LoginUser");
-            userPath.orderByValue().on("value", function(snapshot){
-                console.log(snapshot);
-                snapshot.forEach(function(data){
-                    console.log(data);
-                    console.log("THIS IS EACH USER" + data.Email + "and this is the userName" + data.UserName);
-                })
+            userPath.once("value", function(snapshot){
+                console.log(snapshot.val());
+                var users = snapshot.val();
+
+                for (user in users){
+                    console.log(user);
+                }
+
             })
         }
 
