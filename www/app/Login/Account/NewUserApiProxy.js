@@ -29,16 +29,27 @@ angular.module('RoomateApp')
             var newDBpath = new Firebase("https://roomateapp-1470094404168.firebaseio.com/LoginUser"+"/" + newhash);
             //testing
             newDBpath.set({
-                    "Name": "keyValu"
-                })
-            console.log("works good" + newhash);
+                    Email: UserInfo.getEmail(),
+                    UserName: UserInfo.getUserName(),
+                    Image: UserInfo.getPicture(),
+                    MsgLog: "",
+                    FriendList: ""
+                });
+        }
 
+        var getUsers = function(){
+            var userPath = new Firebase("https://roomateapp-1470094404168.firebaseio.com/LoginUser");
+            userPath.orderByValue().on("value", function(snapshot){
+                console.log(snapshot);
+                snapshot.forEach(function(data){
+                    console.log(data);
+                    console.log("THIS IS EACH USER" + data.Email + "and this is the userName" + data.UserName);
+                })
+            })
         }
 
 
         var testingGettingStuff = function () {
-            //go to the ref link var itemsRef = new Firebase("https://roomateapp-1470094404168.firebaseio.com/LoginUser ............... UUID...");
-            //then extract the information.... will provide a clean way for both fb and google.
 
             itemsRef.on("value", function (snapshot) {
                 console.log(snapshot.val());
@@ -54,6 +65,7 @@ angular.module('RoomateApp')
         return {
             addNewUser: addNewUser,
             testingGettingStuff: testingGettingStuff,
-            newAddUser: newAddUser
+            newAddUser: newAddUser,
+            getUsers : getUsers
         }
     }]);

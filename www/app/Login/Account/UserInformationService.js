@@ -4,7 +4,7 @@ angular.module('RoomateApp').factory('UserInfo', function () {
     var userName = {};
     var pictureURL = {};
     var userEmail = {};
-    var dbKeyVal = {};
+    var userIDKey = {};
 
     var getLoginStatus = function(){
         return LoginStatus;
@@ -38,6 +38,14 @@ angular.module('RoomateApp').factory('UserInfo', function () {
         userEmail = email;
     }
 
+    var getuserIDKey = function(){
+        return userIDKey;
+    }
+
+    var setuserIDKey = function(key){
+        userIDKey = key;
+    }
+
     return {
         getLoginStatus : getLoginStatus,
         setLoginStatus : setLoginStatus,
@@ -47,5 +55,7 @@ angular.module('RoomateApp').factory('UserInfo', function () {
         getPicture : getPicture,
         getEmail : getEmail,
         setEmail : setEmail,
+        getuserIDKey : getuserIDKey,
+        setuserIDKey : setuserIDKey
     }
 });

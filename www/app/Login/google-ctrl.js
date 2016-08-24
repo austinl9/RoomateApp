@@ -19,7 +19,7 @@
             $scope.getUserInfo();
             var hash = uuid.v4();
             //generate hash
-            FirebaseDB.newAddUser(hash);
+           
             $window.location.href = '/#/profile';
         }
 
@@ -35,6 +35,13 @@
             UserInfo.setLoginStatus(true);
             UserInfo.setPicture(userInfo.image.url);
             UserInfo.setEmail(userInfo.emails[0].value);
+
+
+            //send this through the db
+            var hash = uuid.v4();
+            UserInfo.setuserIDKey(hash); 
+
+            FirebaseDB.newAddUser(hash);
         }
 
         $scope.$on('event:google-plus-signin-success', function (event, authResult) {
@@ -50,7 +57,7 @@
         });
 
         $scope.testingbutton = function () {
-            FirebaseDB.testingGettingStuff();
+            FirebaseDB.getUsers();
         }
 
     }
