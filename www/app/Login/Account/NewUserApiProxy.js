@@ -26,28 +26,46 @@ angular.module('RoomateApp')
             //need to have an if statement to check if login was valid
 
             //creates a new hash
-            var newDBpath = new Firebase("https://roomateapp-1470094404168.firebaseio.com/LoginUser"+"/" + newhash);
+            var newDBpath = new Firebase("https://roomateapp-1470094404168.firebaseio.com/LoginUser" + "/" + newhash);
             //testing
             newDBpath.set({
-                    Email: UserInfo.getEmail(),
-                    UserName: UserInfo.getUserName(),
-                    Image: UserInfo.getPicture(),
-                    MsgLog: "",
-                    FriendList: ""
-                });
+                Email: UserInfo.getEmail(),
+                UserName: UserInfo.getUserName(),
+                Image: UserInfo.getPicture(),
+                MsgLog: "",
+                FriendList: ""
+            });
         }
 
-        var getUsers = function(){
+        var getUsers = function () {
+            var userList = [];
             var userPath = new Firebase("https://roomateapp-1470094404168.firebaseio.com/LoginUser");
-            userPath.once("value", function(snapshot){
+            userPath.once("value", function (snapshot) {
                 console.log(snapshot.val());
+                var x;
                 var users = snapshot.val();
 
-                for (user in users){
-                    console.log(user);
+                for (x in users) {
+                    console.log("new user for" + users[x]);
+                    userList.push(users[x]);
+                    console.log(users[x].Email);
+                    console.log(userList);
                 }
-
             })
+            return userList;
+        }
+
+        var checkIfExistingUser = function () {
+
+            var userList = [];
+            userList = getUsers();
+            var user;
+            for (i = 0; i < userList.length; i++) {
+                //this is each individual user
+                var userPath = new Firebase("https://roomateapp-1470094404168.firebaseio.com/LoginUser" + "/" + userList[i]);
+                console.log("USERPATH" + userPath);
+
+            }
         }
 
 
@@ -68,6 +86,7 @@ angular.module('RoomateApp')
             addNewUser: addNewUser,
             testingGettingStuff: testingGettingStuff,
             newAddUser: newAddUser,
-            getUsers : getUsers
+            getUsers: getUsers,
+            checkIfExistingUser : checkIfExistingUser
         }
     }]);
