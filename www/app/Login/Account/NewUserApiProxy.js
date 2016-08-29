@@ -33,7 +33,8 @@ angular.module('RoomateApp')
                 UserName: UserInfo.getUserName(),
                 Image: UserInfo.getPicture(),
                 MsgLog: "",
-                FriendList: ""
+                FriendList: "",
+                UUID: UserInfo.getuserIDKey()
             });
         }
 
@@ -42,33 +43,30 @@ angular.module('RoomateApp')
             var currentUserEmail = UserInfo.getEmail();
             var userPath = new Firebase("https://roomateapp-1470094404168.firebaseio.com/LoginUser");
             userPath.once("value", function (snapshot) {
-                console.log(snapshot.val());
 
                 //initialize for for loop
                 var x;
                 var users = snapshot.val();
+                console.log("what's inside?!" + snapshot.val());
 
                 for (x in users) {
-                    console.log("new user for" + users[x]);
-                    console.log(currentUserEmail);
                     console.log(users[x].Email);
-                    if(currentUserEmail.localeCompare(users[x].Email) == 0){
-                        console.log("we got true");
-                        UserInfo.setExistingUser(true);
+                    console.log(users[x]);
+                    if (currentUserEmail) {
+                        if (currentUserEmail === users[x].Email) {
+                            UserInfo.setExistingUser(true);
+                        }
+                        console.log(users[x].Email);
                     }
-                    console.log(users[x].Email);
                 }
             })
         }
-
 
         var testingGettingStuff = function () {
 
             itemsRef.on("value", function (snapshot) {
                 console.log(snapshot.val());
                 var test = snapshot.val();
-                console.log(test.austin);
-                console.log(snapshot.key());
             }, function (errorObject) {
                 console.log("The read failed: " + errorObject.code);
             });
@@ -79,6 +77,6 @@ angular.module('RoomateApp')
             addNewUser: addNewUser,
             testingGettingStuff: testingGettingStuff,
             newAddUser: newAddUser,
-            checkIfExistingUser : checkIfExistingUser
+            checkIfExistingUser: checkIfExistingUser
         }
     }]);

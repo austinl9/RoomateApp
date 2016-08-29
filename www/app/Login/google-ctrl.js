@@ -41,7 +41,7 @@
             UserInfo.setuserIDKey(hash);
             FirebaseDB.checkIfExistingUser();
             console.log(UserInfo.getExistingUser());
-            if (UserInfo.getExistingUser()) {
+            if (UserInfo.getExistingUser() == true) {
                 console.log("we already got this user here");
             }
             else {
