@@ -1,9 +1,9 @@
 (function () {
     'use strict';
 
-    angular.module('RoomateApp').controller('fbCtrl', ['$scope', '$ionicPopover', '$ionicModal', '$window', 'UserInfo', 'FirebaseDB', fbCtrl]);
+    angular.module('RoomateApp').controller('fbCtrl', ['$scope', '$ionicPopover', '$ionicModal', '$window', 'UserInfo', 'FirebaseDB','uuid', fbCtrl]);
 
-    function fbCtrl($scope, $ionicPopover, $ionicModal, $window, UserInfo, FirebaseDB) {
+    function fbCtrl($scope, $ionicPopover, $ionicModal, $window, UserInfo, FirebaseDB, uuid) {
 
         // INITIALIZED FACEBOOK API CALL
         window.fbAsyncInit = function () {
@@ -22,7 +22,7 @@
             js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=1808359049450591";
             fjs.parentNode.insertBefore(js, fjs);
         } (document, 'script', 'facebook-jssdk'));
- 
+
 
         $scope.statusChangeCallback = function (response) {
             console.log("clicked");
@@ -33,7 +33,6 @@
             // for FB.getLoginStatus().
             if (response.status === 'connected') {
                 $scope.getFacebookInfo();
-                UserInfo.setLoginStatus(true);
                 $window.location.href = '/#/profile';
             }
 
@@ -46,7 +45,6 @@
                     //if successful login we will redirect the user to a different page
                     if (response.authResponse) {
                         $scope.getFacebookInfo();
-                        UserInfo.setLoginStatus(true);
                         $window.location.href = '/#/profile';
                     }
                     else {
@@ -65,7 +63,6 @@
                     //if successful login we will redirect the user to a different page
                     if (response.authResponse) {
                         $scope.getFacebookInfo();
-                        UserInfo.setLoginStatus(true);
                         $window.location.href = '/#/profile';
                     }
                     else {
@@ -98,20 +95,31 @@
                     $scope.name = response.name;
                     UserInfo.setUserName($scope.name);
                     //GETS YOUR PICTURE
-                    $scope.getPicturefromFB ();
+                    $scope.getPicturefromFB();
                 });
 
 
             });
         };
 
-//GETS YOUR PICTURE
+        //GETS YOUR PICTURE
         $scope.getPicturefromFB = function () {
             FB.api('/me/picture?type=large', function (response) {
                 console.log(response)
-                $scope.$apply(function (){
+                $scope.$apply(function () {
                     UserInfo.setPicture(response.data.url);
-                    FirebaseDB.addNewUser();
+                    FirebaseDB.checkIfExistingUser();
+                    //store in the db here
+                    if (UserInfo.getExistingUser() == true) {
+                        console.log("we already got this user here");
+                    }
+                    else {
+                        var hash = uuid.v4();
+                        UserInfo.setuserIDKey(hash);
+                        UserInfo.setLoginStatus(true);
+                        FirebaseDB.newAddUser(hash);
+                    }
+                    UserInfo.setLoginStatus(true);
                 });
             });
         }

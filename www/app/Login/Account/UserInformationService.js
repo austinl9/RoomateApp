@@ -4,7 +4,8 @@ angular.module('RoomateApp').factory('UserInfo', function () {
     var userName = {};
     var pictureURL = {};
     var userEmail = {};
-    var dbKeyVal = {};
+    var userIDKey = {};
+    var existingUser = {};
 
     var getLoginStatus = function(){
         return LoginStatus;
@@ -38,6 +39,37 @@ angular.module('RoomateApp').factory('UserInfo', function () {
         userEmail = email;
     }
 
+    var getuserIDKey = function(){
+        return userIDKey;
+    }
+
+    var setuserIDKey = function(key){
+        userIDKey = key;
+    }
+
+    var createBlankUser = function(){
+        LoginStatus = false;
+        userName = {};
+        pictureURL = {};
+        userEmail = {};
+        userIDKey = {};
+    }
+
+    var setExistingUser = function(boolean){
+        existingUser = boolean;
+    }
+
+    var getExistingUser = function(){
+        return existingUser;
+    }
+
+    var updateService = function(name, email, pic){
+        LoginStatus = true;
+        userName = name;
+        userEmail = email;
+        pictureURL = pic;
+    }
+
     return {
         getLoginStatus : getLoginStatus,
         setLoginStatus : setLoginStatus,
@@ -47,5 +79,11 @@ angular.module('RoomateApp').factory('UserInfo', function () {
         getPicture : getPicture,
         getEmail : getEmail,
         setEmail : setEmail,
+        getuserIDKey : getuserIDKey,
+        setuserIDKey : setuserIDKey,
+        createBlankUser : createBlankUser,
+        setExistingUser : setExistingUser,
+        getExistingUser : getExistingUser,
+        updateService : updateService
     }
 });

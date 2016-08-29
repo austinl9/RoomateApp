@@ -1,10 +1,14 @@
 (function () {
     'use strict';
 
-    angular.module('RoomateApp').controller('ProfileCtrl', ['$scope', '$window', '$ionicPopup', '$timeout', 'UserInfo', ProfileCtrl]);
+    angular.module('RoomateApp').controller('ProfileCtrl', ['$scope', '$window', '$ionicPopup', '$timeout', 'UserInfo', 'FirebaseDB', ProfileCtrl]);
 
-    function ProfileCtrl($scope, $window, $ionicPopup, $timeout, UserInfo) {
+    function ProfileCtrl($scope, $window, $ionicPopup, $timeout, UserInfo, FirebaseDB) {
 
+        var validEmail = function (email) {
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        }
         $scope.$watch(function ()
         { return UserInfo.getLoginStatus(); }, function (newValue, oldValue) {
             if (newValue != null) {
@@ -31,6 +35,14 @@
             }
         }, true);
 
+        $scope.$watch(function ()
+        { return UserInfo.getEmail(); }, function (newValue, oldValue) {
+            if (newValue != null) {
+                $scope.userEmail = newValue;
+                $scope.validEmail = validEmail($scope.userEmail);
+            }
+        }, true);
+
         // An alert dialog
         $scope.showNotLoginAlert = function () {
             var alertPopup = $ionicPopup.alert({
@@ -39,9 +51,18 @@
             });
 
             alertPopup.then(function (res) {
-                $window.location.href = '/#/fb';
+                UserInfo.createBlankUser();
+                $window.location.href = '/#/login';
             });
         };
+
+        $scope.grabinformation = function(){
+            FirebaseDB.getUserInfo();
+        }
+
+        $scope.updateProfile = function () {
+            FirebaseDB.updateProfile($scope.name, "", $scope.userEmail);
+        }
 
     }
 })();

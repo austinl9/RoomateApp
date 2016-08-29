@@ -17,7 +17,9 @@
 
         $scope.confirmGoogleLogin = function () {
             $scope.getUserInfo();
-            FirebaseDB.addNewUser();
+            var hash = uuid.v4();
+            //generate hash
+
             $window.location.href = '/#/profile';
         }
 
@@ -33,6 +35,18 @@
             UserInfo.setLoginStatus(true);
             UserInfo.setPicture(userInfo.image.url);
             UserInfo.setEmail(userInfo.emails[0].value);
+
+            //send this through the db
+            var hash = uuid.v4();           
+            FirebaseDB.checkIfExistingUser();
+            console.log(UserInfo.getExistingUser());
+            if (UserInfo.getExistingUser() == true) {
+                console.log("we already got this user here");
+            }
+            else {
+                 UserInfo.setuserIDKey(hash);
+                FirebaseDB.newAddUser(hash);
+            }
         }
 
         $scope.$on('event:google-plus-signin-success', function (event, authResult) {
@@ -48,13 +62,9 @@
         });
 
         $scope.testingbutton = function () {
-            FirebaseDB.testingGettingStuff();
+            FirebaseDB.checkIfExistingUser();
         }
 
-        $scope.testingUUID = function () {
-            var hash = uuid.v4();
-            console.log(hash);
-        }
     }
 })();
 
