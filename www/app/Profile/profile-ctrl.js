@@ -39,7 +39,8 @@
             });
 
             alertPopup.then(function (res) {
-                $window.location.href = '/#/fb';
+                UserInfo.createBlankUser();
+                $window.location.href = '/#/login';                
             });
         };
 

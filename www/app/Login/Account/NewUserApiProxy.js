@@ -37,35 +37,28 @@ angular.module('RoomateApp')
             });
         }
 
-        var getUsers = function () {
-            var userList = [];
+        var checkIfExistingUser = function () {
+
+            var currentUserEmail = UserInfo.getEmail();
             var userPath = new Firebase("https://roomateapp-1470094404168.firebaseio.com/LoginUser");
             userPath.once("value", function (snapshot) {
                 console.log(snapshot.val());
+
+                //initialize for for loop
                 var x;
                 var users = snapshot.val();
 
                 for (x in users) {
                     console.log("new user for" + users[x]);
-                    userList.push(users[x]);
+                    console.log(currentUserEmail);
                     console.log(users[x].Email);
-                    console.log(userList);
+                    if(currentUserEmail.localeCompare(users[x].Email) == 0){
+                        console.log("we got true");
+                        UserInfo.setExistingUser(true);
+                    }
+                    console.log(users[x].Email);
                 }
             })
-            return userList;
-        }
-
-        var checkIfExistingUser = function () {
-
-            var userList = [];
-            userList = getUsers();
-            var user;
-            for (i = 0; i < userList.length; i++) {
-                //this is each individual user
-                var userPath = new Firebase("https://roomateapp-1470094404168.firebaseio.com/LoginUser" + "/" + userList[i]);
-                console.log("USERPATH" + userPath);
-
-            }
         }
 
 
@@ -86,7 +79,6 @@ angular.module('RoomateApp')
             addNewUser: addNewUser,
             testingGettingStuff: testingGettingStuff,
             newAddUser: newAddUser,
-            getUsers: getUsers,
             checkIfExistingUser : checkIfExistingUser
         }
     }]);
