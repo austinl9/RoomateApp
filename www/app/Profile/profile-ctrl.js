@@ -56,6 +56,9 @@
             });
         };
 
+        $scope.grabinformation = function(){
+            FirebaseDB.getUserInfo();
+        }
 
         $scope.updateProfile = function () {
             FirebaseDB.updateProfile($scope.name, "", $scope.userEmail);

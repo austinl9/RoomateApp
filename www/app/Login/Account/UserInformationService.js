@@ -63,6 +63,13 @@ angular.module('RoomateApp').factory('UserInfo', function () {
         return existingUser;
     }
 
+    var updateService = function(name, email, pic){
+        LoginStatus = true;
+        userName = name;
+        userEmail = email;
+        pictureURL = pic;
+    }
+
     return {
         getLoginStatus : getLoginStatus,
         setLoginStatus : setLoginStatus,
@@ -76,6 +83,7 @@ angular.module('RoomateApp').factory('UserInfo', function () {
         setuserIDKey : setuserIDKey,
         createBlankUser : createBlankUser,
         setExistingUser : setExistingUser,
-        getExistingUser : getExistingUser
+        getExistingUser : getExistingUser,
+        updateService : updateService
     }
 });

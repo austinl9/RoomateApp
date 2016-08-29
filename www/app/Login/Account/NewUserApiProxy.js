@@ -23,7 +23,6 @@ angular.module('RoomateApp')
         }
 
         var newAddUser = function (newhash) {
-            //need to have an if statement to check if login was valid
 
             //creates a new hash
             var newDBpath = new Firebase("https://roomateapp-1470094404168.firebaseio.com/LoginUser" + "/" + newhash);
@@ -58,12 +57,25 @@ angular.module('RoomateApp')
             })
         }
 
-        var updateProfile = function(userName, picurl, emailurl){
+        var updateProfile = function (userName, picurl, emailurl) {
             console.log("we here");
             var userID = UserInfo.getuserIDKey();
             console.log(userID);
             var userPath = new Firebase("https://roomateapp-1470094404168.firebaseio.com/LoginUser/" + userID);
-            userPath.update({Email: emailurl, UserName: userName, Image: picurl})
+            userPath.update({ Email: emailurl, UserName: userName, Image: picurl })
+        }
+
+        //WE NEED TO GET USER INFO FROM THE DB RATHER THAN USING THE SERVICE
+        var getUserInfo = function () {
+            var keyval = UserInfo.getuserIDKey();
+            console.log("keyval" + keyval);
+            var userPath = new Firebase("https://roomateapp-1470094404168.firebaseio.com/LoginUser/" + keyval);
+            userPath.on("value", function (snapshot) {
+                UserInfo.updateService(snapshot.val().UserName, snapshot.val().Email, snapshot.val().Image);
+            }, function (errorObject) {
+                console.log("The read failed: " + errorObject.code);
+            });
+
         }
 
 
@@ -71,6 +83,7 @@ angular.module('RoomateApp')
             addNewUser: addNewUser,
             newAddUser: newAddUser,
             checkIfExistingUser: checkIfExistingUser,
-            updateProfile : updateProfile
+            updateProfile: updateProfile,
+            getUserInfo: getUserInfo
         }
     }]);
