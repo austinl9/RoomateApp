@@ -37,14 +37,14 @@
             UserInfo.setEmail(userInfo.emails[0].value);
 
             //send this through the db
-            var hash = uuid.v4();
-            UserInfo.setuserIDKey(hash);
+            var hash = uuid.v4();           
             FirebaseDB.checkIfExistingUser();
             console.log(UserInfo.getExistingUser());
             if (UserInfo.getExistingUser() == true) {
                 console.log("we already got this user here");
             }
             else {
+                 UserInfo.setuserIDKey(hash);
                 FirebaseDB.newAddUser(hash);
             }
         }

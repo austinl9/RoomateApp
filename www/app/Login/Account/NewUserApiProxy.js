@@ -44,39 +44,33 @@ angular.module('RoomateApp')
             var userPath = new Firebase("https://roomateapp-1470094404168.firebaseio.com/LoginUser");
             userPath.once("value", function (snapshot) {
 
-                //initialize for for loop
                 var x;
                 var users = snapshot.val();
-                console.log("what's inside?!" + snapshot.val());
 
                 for (x in users) {
-                    console.log(users[x].Email);
-                    console.log(users[x]);
                     if (currentUserEmail) {
                         if (currentUserEmail === users[x].Email) {
                             UserInfo.setExistingUser(true);
+                            UserInfo.setuserIDKey(users[x].UUID);
                         }
-                        console.log(users[x].Email);
                     }
                 }
             })
         }
 
-        var testingGettingStuff = function () {
-
-            itemsRef.on("value", function (snapshot) {
-                console.log(snapshot.val());
-                var test = snapshot.val();
-            }, function (errorObject) {
-                console.log("The read failed: " + errorObject.code);
-            });
+        var updateProfile = function(userName, picurl, emailurl){
+            console.log("we here");
+            var userID = UserInfo.getuserIDKey();
+            console.log(userID);
+            var userPath = new Firebase("https://roomateapp-1470094404168.firebaseio.com/LoginUser/" + userID);
+            userPath.update({Email: emailurl, UserName: userName, Image: picurl})
         }
 
 
         return {
             addNewUser: addNewUser,
-            testingGettingStuff: testingGettingStuff,
             newAddUser: newAddUser,
-            checkIfExistingUser: checkIfExistingUser
+            checkIfExistingUser: checkIfExistingUser,
+            updateProfile : updateProfile
         }
     }]);

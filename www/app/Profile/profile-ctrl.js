@@ -1,9 +1,9 @@
 (function () {
     'use strict';
 
-    angular.module('RoomateApp').controller('ProfileCtrl', ['$scope', '$window', '$ionicPopup', '$timeout', 'UserInfo', ProfileCtrl]);
+    angular.module('RoomateApp').controller('ProfileCtrl', ['$scope', '$window', '$ionicPopup', '$timeout', 'UserInfo', 'FirebaseDB', ProfileCtrl]);
 
-    function ProfileCtrl($scope, $window, $ionicPopup, $timeout, UserInfo) {
+    function ProfileCtrl($scope, $window, $ionicPopup, $timeout, UserInfo, FirebaseDB) {
 
         $scope.$watch(function ()
         { return UserInfo.getLoginStatus(); }, function (newValue, oldValue) {
@@ -31,6 +31,13 @@
             }
         }, true);
 
+        $scope.$watch(function ()
+        { return UserInfo.getEmail(); }, function (newValue, oldValue) {
+            if (newValue != null) {
+                $scope.userEmail = newValue;
+            }
+        }, true);
+
         // An alert dialog
         $scope.showNotLoginAlert = function () {
             var alertPopup = $ionicPopup.alert({
@@ -43,6 +50,11 @@
                 $window.location.href = '/#/login';                
             });
         };
+
+
+        $scope.updateProfile = function(){
+            FirebaseDB.updateProfile($scope.name, "", $scope.userEmail);
+        }
 
     }
 })();
