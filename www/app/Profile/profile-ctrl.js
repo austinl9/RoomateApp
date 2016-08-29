@@ -5,6 +5,10 @@
 
     function ProfileCtrl($scope, $window, $ionicPopup, $timeout, UserInfo, FirebaseDB) {
 
+        var validEmail = function (email) {
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        }
         $scope.$watch(function ()
         { return UserInfo.getLoginStatus(); }, function (newValue, oldValue) {
             if (newValue != null) {
@@ -35,6 +39,7 @@
         { return UserInfo.getEmail(); }, function (newValue, oldValue) {
             if (newValue != null) {
                 $scope.userEmail = newValue;
+                $scope.validEmail = validEmail($scope.userEmail);
             }
         }, true);
 
@@ -47,12 +52,12 @@
 
             alertPopup.then(function (res) {
                 UserInfo.createBlankUser();
-                $window.location.href = '/#/login';                
+                $window.location.href = '/#/login';
             });
         };
 
 
-        $scope.updateProfile = function(){
+        $scope.updateProfile = function () {
             FirebaseDB.updateProfile($scope.name, "", $scope.userEmail);
         }
 
